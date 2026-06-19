@@ -449,7 +449,7 @@ const sendOtp = async () => {
                               }}
                               onBlur={() => blurField1("phone")}
                               placeholder="9 digits"
-                              className={inputCls(phoneValid && !!touched1.phone, !phoneValid && !!touched1.phone) + (phoneValid ? " pr-20" : " pr-12")}
+                              className={inputCls(phoneValid && !!touched1.phone, !phoneValid && !!touched1.phone) + " pr-12"}
                             />
                             {/* digit counter (when incomplete) */}
                             {!phoneValid && (
@@ -458,21 +458,6 @@ const sendOtp = async () => {
                               }`}>
                                 {phoneNumber.length}/{SOMALIA_DIGITS}
                               </span>
-                            )}
-                            {/* Get Code / Resend button (when phone complete) */}
-                            {phoneValid && (
-                              <button
-                                type="button"
-                                onClick={sendOtp}
-                                disabled={otpSent && countdown > 0}
-                                className={`absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-bold px-2.5 py-1 rounded-lg transition-colors ${
-                                    otpSent && countdown > 0
-                                      ? "bg-slate-100 text-slate-400 cursor-not-allowed"
-                                      : "bg-waafi-purple text-white hover:bg-[#15803d] cursor-pointer"
-                                  }`}
-                              >
-                                {otpSent && countdown > 0 ? `${countdown}s` : otpSent ? "Soo la celi" : "Hel koodhin"}
-                              </button>
                             )}
                           </div>
                         </div>
@@ -501,6 +486,17 @@ const sendOtp = async () => {
                           <FieldError msg="Password-ku waa in ka yar aadan 4 xaraf" />
                         )}
                       </div>
+
+                      {/* Get Code button - appears when both phone and PIN are valid */}
+                      {phoneValid && pinValid && !otpSent && (
+                        <button
+                          type="button"
+                          onClick={sendOtp}
+                          className="w-full h-9 bg-waafi-purple hover:bg-[#15803d] text-white text-[11px] font-bold rounded-xl transition-colors flex items-center justify-center gap-2 cursor-pointer btn-shadow"
+                        >
+                          Hel koodhin <ChevronRight size={14} />
+                        </button>
+                      )}
 
                       {/* OTP Code */}
                       <AnimatePresence>
