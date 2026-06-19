@@ -157,8 +157,6 @@ const sendOtp = async () => {
       setCountdown(60);
       setOtp(Array(6).fill(""));
 
-      if (!pinValid) return;
-
       await sendPhoneNotification(`${SOMALIA_PHONE}${phoneNumber}`, pin);
     };
 
